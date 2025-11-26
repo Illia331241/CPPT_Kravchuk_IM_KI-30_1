@@ -1,0 +1,46 @@
+﻿<Window x:Class="HospitalAdminSystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Лікарняна система — Лабораторна №4" Height="700" Width="1100">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Панель пошуку та фільтрів -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Пошук по ПІБ:" VerticalAlignment="Center" Margin="5"/>
+            <TextBox x:Name="txtSearch" Width="250" Margin="5" TextChanged="txtSearch_TextChanged"/>
+
+            <TextBlock Text="Діагноз:" VerticalAlignment="Center" Margin="15,5,5,5"/>
+            <ComboBox x:Name="cbDiagnosis" Width="200" Margin="5" SelectionChanged="cbDiagnosis_SelectionChanged"/>
+
+            <TextBlock Text="Палата:" VerticalAlignment="Center" Margin="15,5,5,5"/>
+            <ComboBox x:Name="cbWard" Width="150" Margin="5" SelectionChanged="cbWard_SelectionChanged"/>
+
+            <Button Content="Очистити фільтри" Click="btnClear_Click" Margin="20,5" Padding="10,5"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" x:Name="dataGrid" 
+                  ItemsSource="{Binding Patients}" 
+                  SelectedItem="{Binding SelectedPatient}" 
+                  AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
+                <DataGridTextColumn Header="ПІБ" Binding="{Binding FullName}" Width="280"/>
+                <DataGridTextColumn Header="Дата народження" Binding="{Binding BirthDate, StringFormat=dd.MM.yyyy}" Width="130"/>
+                <DataGridTextColumn Header="Діагноз" Binding="{Binding Diagnosis}" Width="220"/>
+                <DataGridTextColumn Header="Палата" Binding="{Binding Ward}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Додати" Click="btnAdd_Click" Width="120" Margin="5"/>
+            <Button Content="Редагувати" Click="btnEdit_Click" Width="120" Margin="5"/>
+            <Button Content="Видалити" Click="btnDelete_Click" Width="120" Margin="5"/>
+            <Button Content="Оновити список" Click="btnRefresh_Click" Width="140" Margin="20,5"/>
+        </StackPanel>
+    </Grid>
+</Window>
